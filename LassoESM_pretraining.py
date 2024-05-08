@@ -16,8 +16,8 @@ Lasso_seq_tmp = df['Core'].tolist()
 Lasso_seq = list(set(Lasso_seq_tmp))
 print(len(Lasso_seq))
 random.shuffle(Lasso_seq)
-Lasso_seq_train = Lasso_seq[:int(len(Lasso_seq) * 0.9)]
-Lasso_seq_test = Lasso_seq[int(len(Lasso_seq) * 0.9):]
+Lasso_seq_train = Lasso_seq[:int(len(Lasso_seq) * 0.8)]
+Lasso_seq_test = Lasso_seq[int(len(Lasso_seq) * 0.8):]
 
 # Define model, tokenizer, and MLM data set object
 model = AutoModelForMaskedLM.from_pretrained("facebook/esm2_t33_650M_UR50D").to(device)
