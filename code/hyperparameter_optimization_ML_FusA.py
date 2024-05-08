@@ -17,10 +17,10 @@ from sklearn.model_selection import GridSearchCV
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-data = pd.read_excel("231130_FusA_Mutants_SEBedit.xlsx")
+data = pd.read_excel("../data/231130_FusA_Mutants_SEBedit.xlsx")
 seqs = data.iloc[:,0].tolist()
 
-Xs = np.load('FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
 ys = data.iloc[:,1].tolist()
 
 print("Optimization for Models trained on FusA")
