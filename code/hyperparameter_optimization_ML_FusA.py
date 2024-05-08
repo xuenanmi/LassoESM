@@ -26,7 +26,7 @@ ys = data.iloc[:,1].tolist()
 print("Optimization for Models trained on FusA")
 
 model_list = [KNeighborsClassifier, RandomForestClassifier, AdaBoostClassifier, SVC]
-model_names = ['KNN classif', 'RF', 'AdaBoost', 'SVC']
+model_names = ['RF', 'AdaBoost', 'SVC', 'MLP']
 parameters_list = [
     {'classifier__n_neighbors': [5, 10, 25, 50], 'classifier__weights': ('uniform', 'distance')},
     {'classifier__n_estimators': [20, 50, 100, 200], 'classifier__max_depth': [10,20,50,100], 'classifier__max_features':('sqrt','log2')},
