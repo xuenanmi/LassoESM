@@ -19,8 +19,8 @@ def model_performance(X_test, y_test):
     return [np.mean(SVC_CV_acc), np.mean(SVC_CV_auc)]
     
 if __name__ == "__main__":
-   Xs = np.load('../exp_data_embeddings/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
-   data = pd.read_excel('231130_FusA_Mutants_SEBedit.xlsx')
+   Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
    ys = data.iloc[:,1].tolist()
    diff_train_size_acc = []
    diff_train_size_auc = []
