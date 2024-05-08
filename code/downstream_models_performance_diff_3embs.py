@@ -35,13 +35,13 @@ if __name__ == '__main__':
     
    random_seed_ls = random.sample(range(100), 3)
    ##vanilla ESM    
-   vanilla_Xs = np.load('vanilla_ESM_embs.npy')
-   data = pd.read_excel('231130_FusA_Mutants_SEBedit.xlsx')
+   vanilla_Xs = np.load('../data/vanilla_ESM_embs.npy')
+   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
    ys = data.iloc[:,1].tolist()
    ##peptide ESM 
-   Peptide_Xs = np.load('FusA_embs_from_PeptideESM_650M.npy')
+   Peptide_Xs = np.load('../data/FusA_embs_from_PeptideESM_650M.npy')
    ##Lasso ESM Galore
-   rodeo_Xs = np.load('FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+   rodeo_Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
    
 
    vanilla_ESM_cv_res = []
