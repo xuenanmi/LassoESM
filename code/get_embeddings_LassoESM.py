@@ -24,7 +24,7 @@ def get_mean_rep(sequence):
 if __name__ == "__main__":
    model.eval()
    ##extract embeddings
-   data = pd.read_excel('../231130_FusA_Mutants_SEBedit.xlsx')
+   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
    seq_embs = []
    seq_ls = data.iloc[:,0].tolist()
    print(len(seq_ls))
@@ -32,5 +32,5 @@ if __name__ == "__main__":
        seq_embs.append(get_mean_rep(seq))
    seq_embs = np.array(seq_embs)
    print(seq_embs.shape)
-   np.save('FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy', seq_embs)   
+   np.save('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy', seq_embs)   
   
