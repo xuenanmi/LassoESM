@@ -8,7 +8,6 @@ from datasets import Dataset
 import sys
 import trl
 
-# Determine the device to use for training (GPU if available, else CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load sequences from an Excel file
