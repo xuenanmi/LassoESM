@@ -3,7 +3,7 @@ import random
 from tqdm import tqdm
 import numpy as np
 import pandas as pd
-from transformers import (AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoTokenizer, AutoModelForMaskedLM, DataCollatorForLanguageModeling)
+from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoTokenizer, AutoModelForMaskedLM, DataCollatorForLanguageModeling
 from datasets import Dataset
 import sys
 import trl
@@ -12,7 +12,7 @@ import trl
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load sequences from an Excel file
-df = pd.read_excel('../RODEO_seq_high_score.xlsx')
+df = pd.read_excel('../data/RODEO_seq_high_score.xlsx')
 
 # Extract the 'Core' column which contains the sequences
 Lasso_seq_tmp = df['Core'].tolist()
