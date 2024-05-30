@@ -7,11 +7,15 @@ import seaborn as sns
 import sys
 
 def plot_tSNE(Xs, ys, title):
+    # Apply PCA to reduce dimensions to 100 components
     pca = PCA(n_components = 100)
     xt = pca.fit_transform(Xs)
+    # Apply t-SNE to reduce dimensions to 2 components
     tsne = TSNE(n_components=2,perplexity=20, random_state=12)
     X_tsne = tsne.fit_transform(xt)
-    print('Done')
+    print('t-SNE computation Done')
+
+    # Plotting the t-SNE results
     classes = np.unique(ys)
     f, ax = plt.subplots(ncols=1, nrows=1,figsize=(10,7))
     colors = ['#88C1E080', '#83B663', '#EAB24A', '#D13878']
@@ -32,21 +36,21 @@ def plot_tSNE(Xs, ys, title):
     plt.close()
 
 if __name__ == "__main__":
+   # Load original dataset
    Xs_ori = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
    data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
    ys_ori = Xs_ori.shape[0] * [0]
-
+   # Load round 2 dataset
    Xs_r2 = np.load("../data/new_adversarial_round_exp_verified_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy")
    r2 =  pd.read_csv('../data/new_adversarial.csv')
    ys_r2 = Xs_r2.shape[0] * [1]
-
+   # Load round 1 dataset
    Xs_r1 = np.load('../data/new_first_round_exp_verified_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
    ys_r1 = Xs_r1.shape[0] * [2]
-
+   # Load round 3 dataset
    Xs_r3 = np.load("../data/fourth_round_exp_verified_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy")
    ys_r3 = Xs_r3.shape[0] * [3]
-
-
+   # Combine all datasets
    Xs = np.vstack((Xs_ori, Xs_r2, Xs_r1, Xs_r3))
    ys = ys_ori + ys_r2 +  ys_r1 + ys_r3
    plot_tSNE(Xs, ys, 'ori_r1_r2_r3_tSNE.png')
