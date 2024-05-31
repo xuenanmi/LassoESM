@@ -16,6 +16,9 @@ This repository contains all the source code for predicting substrate selectivit
 - Model Verification and Optimization
   - `tSNE-plot.py`: visualize the training data and new experimental verified data sets
 
+## Dependency
+`environment.yml`
+
 ## Authors
 
 - **Xuenan Mi** - [xmi4@illinois.edu](mailto:xmi4@illinois.edu)
