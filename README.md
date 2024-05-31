@@ -17,7 +17,7 @@ This repository contains all the source code for predicting substrate selectivit
   - `tSNE-plot.py`: visualize the training data and new experimental verified data sets
 
 ## Dependency
-`environment.yml`
+To set up the environment for this project, use the provided `environment.yml` file. This file contains all necessary dependencies.
 
 ## Authors
 
