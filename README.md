@@ -23,5 +23,5 @@ To set up the environment for this project, use the provided `environment.yml` f
 
 - **Xuenan Mi** - [xmi4@illinois.edu](mailto:xmi4@illinois.edu)
 
-## License
+
 
