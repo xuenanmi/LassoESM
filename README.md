@@ -1,4 +1,4 @@
-# LassoESM
+# Lasso Peptide Language Model
 
 This repository contains all the source code for predicting substrate selectivity of lasso cyclase using protein language model.
 
