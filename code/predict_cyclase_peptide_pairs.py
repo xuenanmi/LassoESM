@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import recall_score, balanced_accuracy_score
 
-# Custom dataset class for handling the input features and labels
+# Define dataset class for handling the input features and labels
 class CustomDataset(Dataset):
     def __init__(self, X, y):
         self.X = torch.tensor(X, dtype=torch.float32)
