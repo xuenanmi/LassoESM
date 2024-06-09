@@ -3,9 +3,57 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
+import math
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import recall_score, balanced_accuracy_score
+
+# Define the CrossAttention module
+class CrossAttention(nn.Module):
+    def __init__(self):
+        super(CrossAttention, self).__init__()
+        self.W_query = nn.Parameter(torch.rand(1280, 1280))  # Weight matrix for queries
+        self.W_key = nn.Parameter(torch.rand(1280, 1280))    # Weight matrix for keys
+        self.W_value = nn.Parameter(torch.rand(1280, 1280))  # Weight matrix for values
+
+    def forward(self, x_1, x_2, attn_mask=None):
+        # Compute queries, keys, and values
+        query = torch.matmul(x_2, self.W_query)
+        key = torch.matmul(x_1, self.W_key)
+        value = torch.matmul(x_1, self.W_value)
+
+        # Compute attention scores
+        attn_scores = torch.matmul(query, key.transpose(-2, -1))
+        scaled_attn_scores = attn_scores / math.sqrt(query.size(-1))
+        attn_weights = F.softmax(scaled_attn_scores, dim=-1)
+
+        # Apply attention weights to values
+        output = torch.matmul(attn_weights, value)
+        return output, attn_weights
+
+# Modify the MLP model to include CrossAttention
+class MLPWithAttention(nn.Module):
+    def __init__(self, input_size):
+        super(MLPWithAttention, self).__init__()
+        self.cross_attention = CrossAttention()
+        self.mlp = nn.Sequential(
+            nn.Linear(input_size, 512),
+            nn.ReLU(),
+            nn.Linear(512, 64),
+            nn.ReLU(),
+            nn.Linear(64, 1),
+            nn.Sigmoid()
+        )
+    
+    def forward(self, x):
+        # Split input into two parts
+        x_1, x_2 = x[:, :1280], x[:, 1280:]
+        # Apply cross-attention mechanism
+        x_1, _ = self.cross_attention(x_1, x_2)
+        # Concatenate outputs and pass through MLP layers
+        x = torch.cat((x_1, x_2), dim=1)
+        return self.mlp(x)
 
 # Custom dataset class for handling the input features and labels
 class CustomDataset(Dataset):
@@ -18,22 +66,6 @@ class CustomDataset(Dataset):
     
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
-
-# Multi-Layer Perceptron model definition
-class MLP(nn.Module):
-    def __init__(self, input_size):
-        super(MLP, self).__init__()
-        self.layers = nn.Sequential(
-            nn.Linear(input_size, 512),
-            nn.ReLU(),
-            nn.Linear(512, 64),
-            nn.ReLU(),
-            nn.Linear(64, 1),
-            nn.Sigmoid()
-        )
-    
-    def forward(self, x):
-        return self.layers(x)
 
 # Function to train the model
 def train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25):
@@ -50,6 +82,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25
             running_loss += loss.item()
         train_loss = running_loss / len(train_loader)
         
+        # Evaluate the model on validation data
         model.eval()
         val_loss = 0.0
         with torch.no_grad():
@@ -81,7 +114,7 @@ if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Load data
-    Cyclase = np.load('../data/All_cyclase_RODEO_from_VanillaESM.npy')    ## Lasso cyclase were embedded by VanillaESM
+    Cyclase = np.load('../data/All_cyclase_RODEO_from_VanillaESM.npy') ## Lasso cyclase were embedded by VanillaESM
     substrate = np.load('../data/lasso_RODEO_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy') ## Lasso peptides were embedded by LassoESM
     
     # Combine Cyclase and substrate data
@@ -96,7 +129,7 @@ if __name__ == "__main__":
     Xs_train, Xs_temp, ys_train, ys_temp = train_test_split(Xs, ys, test_size=0.3, stratify=ys, random_state=42)
     Xs_val, Xs_test, ys_val, ys_test = train_test_split(Xs_temp, ys_temp, test_size=0.5, stratify=ys_temp, random_state=42)
     
-    # Create dataset and dataloader
+    # Create dataset and dataloaders
     train_dataset = CustomDataset(Xs_train, ys_train)
     val_dataset = CustomDataset(Xs_val, ys_val)
     test_dataset = CustomDataset(Xs_test, ys_test)
@@ -107,7 +140,7 @@ if __name__ == "__main__":
     
     # Initialize model, loss function, and optimizer
     input_size = Xs_train.shape[1]
-    model = MLP(input_size).to(device)
+    model = MLPWithAttention(input_size).to(device)  # lasso peptide embeddings reweight its corresponding cyclase embeddings
     criterion = nn.BCELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -118,5 +151,4 @@ if __name__ == "__main__":
     balanced_accuracy, recall = evaluate_model(model, test_loader)
     print("Balanced Accuracy:", balanced_accuracy)
     print("Recall (True Positive Rate):", recall)
-
 
