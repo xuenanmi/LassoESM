@@ -55,7 +55,7 @@ class MLPWithAttention(nn.Module):
         x = torch.cat((x_1, x_2), dim=1)
         return self.mlp(x)
 
-# Custom dataset class for handling the input features and labels
+# Define dataset class for handling the input features and labels
 class CustomDataset(Dataset):
     def __init__(self, X, y):
         self.X = torch.tensor(X, dtype=torch.float32)
