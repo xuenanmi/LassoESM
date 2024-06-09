@@ -16,6 +16,9 @@ This repository contains all the source code for predicting substrate selectivit
 - Model Verification and Optimization
   - `tSNE-plot.py`: visualize the training data and new experimental verified data sets
 
+- A general model to predict lasso peptide and lasso cyclase pairs
+  - `predict_cyclase_peptide_pairs`: A general model (MLP) to predict cyclase(embedded by VanillaESM)-peptide(embedded by LassoESM) pairs
+
 ## Dependency
 To set up the environment for this project, use the provided `environment.yml` file. This file contains all necessary dependencies.
 
