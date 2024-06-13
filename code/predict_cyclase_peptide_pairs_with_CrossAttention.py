@@ -22,8 +22,8 @@ class CrossAttention(nn.Module):
     def forward(self, x_1, x_2, attn_mask=None):
         # Compute queries, keys, and values
         """
-        query: Tensor of shape [batch_size, len_peptide, esm_dim]
-        value: Tensor of shape [batch_size, len_protein, esm_dim]
+        query: Tensor of shape [batch_size, len_protein, esm_dim]
+        value: Tensor of shape [batch_size, len_peptide, esm_dim]
         """
         #print(x_2.shape)
         #print(x_1.shape)
