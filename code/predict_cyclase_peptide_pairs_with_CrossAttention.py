@@ -96,6 +96,9 @@ def pad_esm_embedding(embedding, max_length):
     # Create attention mask
     attn_mask = torch.ones(max_length, dtype=torch.float32)
     attn_mask[embedding.shape[0]:] = 0
+    # Set mask for BOS and EOS tokens to 0
+    attn_mask[0] = 0  # BOS token
+    attn_mask[embedding.shape[0] - 1] = 0 # EOS token
     
     return embedding_tensor, attn_mask
 
@@ -194,13 +197,6 @@ if __name__ == "__main__":
     LassoESM_tokenizer = AutoTokenizer.from_pretrained("../../fourth_round/RODEO_high_score_ESM/checkpoint-3592")
     LassoESM_model.eval()
 
-    #Cyclase = np.load('All_cyclase_RODEO_from_VanillaESM.npy')
-    #substrate = np.load('lasso_RODEO_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
-    
-    # Combine Cyclase and substrate data
-    #Cyclase_substrate = [np.concatenate((Cyclase[i, :], substrate[i, :])) for i in range(Cyclase.shape[0])]
-    #Xs = np.array(Cyclase_substrate)
-
     # Load labels
     data = pd.read_csv('Cyclase_substrate_pairs_pos_neg.csv')
     Cyclase_seq = data.iloc[:, 0].tolist()
@@ -224,7 +220,6 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)    
 
-    #sys.exit()
     # Initialize model, loss function, and optimizer
     input_size = 1280 * 2
     model = MLPWithAttention(input_size).to(device)
@@ -232,7 +227,7 @@ if __name__ == "__main__":
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # Train the model
-    train_model(model, train_loader, val_loader, criterion, optimizer, epochs=30)
+    train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25)
     
     # Evaluate the model
     balanced_accuracy, recall, auc, precision = evaluate_model(model, test_loader)
