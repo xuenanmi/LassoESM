@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import sys
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -8,8 +7,8 @@ import torch.nn.functional as F
 import math
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import recall_score, balanced_accuracy_score,  roc_auc_score, precision_score
-from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoTokenizer, AutoModelForMaskedLM, DataCollatorForLanguageModeling
+from sklearn.metrics import recall_score, balanced_accuracy_score, roc_auc_score, precision_score
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForMaskedLM
 
 # Define the CrossAttention module
 class CrossAttention(nn.Module):
@@ -22,27 +21,28 @@ class CrossAttention(nn.Module):
     def forward(self, x_1, x_2, attn_mask=None):
         # Compute queries, keys, and values
         """
-        query: Tensor of shape [batch_size, len_protein, esm_dim]
-        value: Tensor of shape [batch_size, len_peptide, esm_dim]
+        query: Tensor of shape [batch_size, len_peptide, esm_dim]
+        value: Tensor of shape [batch_size, len_cyclase, esm_dim]
         """
-        #print(x_2.shape)
-        #print(x_1.shape)
         query = torch.matmul(x_1, self.W_query)
         key = torch.matmul(x_2, self.W_key)
         value = torch.matmul(x_2, self.W_value)
-        #print(key.shape)
+
         # Compute attention scores
         attn_scores = torch.matmul(query, key.transpose(-2, -1))
         scaled_attn_scores = attn_scores / math.sqrt(query.size(-1))
+        
         if attn_mask is not None:
-            attn_scores = attn_scores.masked_fill(attn_mask == 0, float('-inf'))
+            attn_scores = attn_scores.masked_fill(attn_mask == 0, float('-inf'))  # mask the padding residues
+        
         attn_weights = F.softmax(scaled_attn_scores, dim=-1)
-        #print(attn_scores)
+        
         # Apply attention weights to values
         output = torch.matmul(attn_weights, value)
+        
         return output, attn_weights
 
-# Modify the MLP model to include CrossAttention
+# Define the MLP model with CrossAttention
 class MLPWithAttention(nn.Module):
     def __init__(self, input_size):
         super(MLPWithAttention, self).__init__()
@@ -58,32 +58,31 @@ class MLPWithAttention(nn.Module):
     
     def forward(self, cyclase, substrate, cyclase_mask, substrate_mask):
         # Apply cross-attention mechanism
-        attn_mask = torch.matmul(cyclase_mask.unsqueeze(-1).float(), substrate_mask.unsqueeze(1).float())
-        x_1, _ = self.cross_attention(cyclase, substrate, attn_mask)
-        
+        attn_mask = torch.matmul(substrate_mask.unsqueeze(-1).float(), cyclase_mask.unsqueeze(1).float())
+        x_1, _ = self.cross_attention(substrate, cyclase, attn_mask)   # reweighted cyclase embeddings
+
         # Average embeddings along the sequence length dimension
-        x_1_avg = torch.sum(x_1 * cyclase_mask.unsqueeze(-1), dim=1) / torch.sum(cyclase_mask, dim=1, keepdim=True)
-        substrate_avg = torch.sum(substrate * substrate_mask.unsqueeze(-1), dim=1) / torch.sum(substrate_mask, dim=1, keepdim=True)
+        x_1_avg = torch.mean(x_1, dim=1)
+        substrate_avg = torch.mean(substrate, dim=1)
         
         # Concatenate averaged embeddings and pass through MLP layers
-        x = torch.cat((x_1_avg, substrate_avg), dim=1)  # Shape: [batch_size, 2560]
+        x = torch.cat((x_1_avg, substrate_avg), dim=1)
         return self.mlp(x)
 
+# Function to get representation from Vanilla ESM model
 def get_rep_from_VanillaESM(sequence):
     token_ids = esm_tokenizer(sequence, return_tensors='pt').to(device)
     with torch.no_grad():
         results = esm_model(token_ids.input_ids, output_hidden_states=True)
     representations = results.hidden_states[33][0]
-    #mean_embedding = representations.mean(dim=0)
-    #print(representations.shape)
     return representations.cpu().numpy()
 
+# Function to get representation from LassoESM model
 def get_rep_from_LassoESM(sequence):
     token_ids = LassoESM_tokenizer(sequence, return_tensors='pt').to(device)
     with torch.no_grad():
         results = LassoESM_model(token_ids.input_ids, output_hidden_states=True)
     representations = results.hidden_states[33][0]
-    #mean_embedding = representations.mean(dim=0)
     return representations.cpu().numpy()
 
 # Function to pad the ESM embeddings
@@ -96,13 +95,12 @@ def pad_esm_embedding(embedding, max_length):
     # Create attention mask
     attn_mask = torch.ones(max_length, dtype=torch.float32)
     attn_mask[embedding.shape[0]:] = 0
-    # Set mask for BOS and EOS tokens to 0
     attn_mask[0] = 0  # BOS token
-    attn_mask[embedding.shape[0] - 1] = 0 # EOS token
+    attn_mask[embedding.shape[0] - 1] = 0  # EOS token
     
     return embedding_tensor, attn_mask
 
-
+# Define the custom dataset class
 class CustomDataset(Dataset):
     def __init__(self, cyclase_sequences, substrate_sequences, labels, max_cyclase_length, max_substrate_length):
         self.cyclase_sequences = cyclase_sequences
@@ -120,15 +118,12 @@ class CustomDataset(Dataset):
         
         # Pad cyclase sequence and create mask
         cyclase_embedding, cyclase_mask = pad_esm_embedding(get_rep_from_VanillaESM(cyclase_seq), self.max_cyclase_length)
-        #print(cyclase_mask)
-        #print(cyclase_mask.shape)
+        
         # Pad substrate sequence and create mask
         substrate_embedding, substrate_mask = pad_esm_embedding(get_rep_from_LassoESM(substrate_seq), self.max_substrate_length)
         
-        label = torch.tensor(self.labels[idx], dtype=torch.float32)        
+        label = torch.tensor(self.labels[idx], dtype=torch.float32)
         return cyclase_embedding, substrate_embedding, cyclase_mask, substrate_mask, label
-
-
 
 # Function to train the model
 def train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25):
@@ -136,46 +131,45 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25
     for epoch in range(epochs):
         model.train()
         running_loss = 0.0
-        for cyclase, substrate, cyclase_mask, substrate_mask, labels in train_loader:  # Unpack data and masks
-            cyclase, substrate, cyclase_mask, substrate_mask, labels = cyclase.to(device), substrate.to(device), cyclase_mask.to(device), substrate_mask.to(device), labels.to(device) 
+        for cyclase, substrate, cyclase_mask, substrate_mask, labels in train_loader:
+            cyclase, substrate, cyclase_mask, substrate_mask, labels = cyclase.to(device), substrate.to(device), cyclase_mask.to(device), substrate_mask.to(device), labels.to(device)
             optimizer.zero_grad()
-            outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)  # Pass cyclase and substrate to the model
+            outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)
             loss = criterion(outputs, labels.unsqueeze(1))
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
+        
         train_loss = running_loss / len(train_loader)
         
         # Evaluate the model on validation data
         model.eval()
         val_loss = 0.0
         with torch.no_grad():
-            for cyclase, substrate, cyclase_mask, substrate_mask, labels in val_loader:  # Unpack data and masks
+            for cyclase, substrate, cyclase_mask, substrate_mask, labels in val_loader:
                 cyclase, substrate, cyclase_mask, substrate_mask, labels = cyclase.to(device), substrate.to(device), cyclase_mask.to(device), substrate_mask.to(device), labels.to(device)
-                outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)  # Pass cyclase and substrate to the model
+                outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)
                 loss = criterion(outputs, labels.unsqueeze(1))
                 val_loss += loss.item()
         
         val_loss /= len(val_loader)
         print(f"Epoch [{epoch+1}/{epochs}], Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+        
         if min_val_loss > val_loss:
-           print(f'Val Loss Decreased({min_val_loss} to {val_loss}) Saving The Model')
-           min_val_loss = val_loss
-         
-           # Saving State Dict
-           torch.save(model.state_dict(), 'saved_model.pth')
-
+            print(f'Val Loss Decreased({min_val_loss:.4f} to {val_loss:.4f}) Saving The Model')
+            min_val_loss = val_loss
+            torch.save(model.state_dict(), 'saved_best_model.pth')
 
 # Function to evaluate the model
 def evaluate_model(model, dataloader):
-    model.load_state_dict(torch.load("saved_model.pth"))
+    model.load_state_dict(torch.load("saved_best_model.pth"))
     model.eval()
     all_preds = []
     all_labels = []
     with torch.no_grad():
-        for cyclase, substrate, cyclase_mask, substrate_mask, labels in dataloader:  
-            cyclase, substrate, cyclase_mask, substrate_mask, labels = cyclase.to(device), substrate.to(device), cyclase_mask.to(device), substrate_mask.to(device), labels.to(device) 
-            outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)  # Pass both cyclase and substrate tensors to the model
+        for cyclase, substrate, cyclase_mask, substrate_mask, labels in dataloader:
+            cyclase, substrate, cyclase_mask, substrate_mask, labels = cyclase.to(device), substrate.to(device), cyclase_mask.to(device), substrate_mask.to(device), labels.to(device)
+            outputs = model(cyclase, substrate, cyclase_mask, substrate_mask)
             preds = (outputs > 0.5).float()
             all_preds.extend(preds.squeeze().tolist())
             all_labels.extend(labels.tolist())
@@ -187,13 +181,12 @@ def evaluate_model(model, dataloader):
     
     return balanced_accuracy, recall, auc, precision
 
-
 if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     esm_model = AutoModelForMaskedLM.from_pretrained("facebook/esm2_t33_650M_UR50D").to(device)
     esm_tokenizer = AutoTokenizer.from_pretrained("facebook/esm2_t33_650M_UR50D")
     esm_model.eval()
-    LassoESM_model = AutoModelForMaskedLM.from_pretrained("../../fourth_round/RODEO_high_score_ESM/checkpoint-3592").to(device)  #8 epoch
+    LassoESM_model = AutoModelForMaskedLM.from_pretrained("../../fourth_round/RODEO_high_score_ESM/checkpoint-3592").to(device)
     LassoESM_tokenizer = AutoTokenizer.from_pretrained("../../fourth_round/RODEO_high_score_ESM/checkpoint-3592")
     LassoESM_model.eval()
 
@@ -218,7 +211,7 @@ if __name__ == "__main__":
 
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)    
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
     # Initialize model, loss function, and optimizer
     input_size = 1280 * 2
