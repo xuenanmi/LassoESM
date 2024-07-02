@@ -1,5 +1,4 @@
-# Lasso Peptide Language Model
-
+# LassoESM: A Lasso Peptide-Tailored Language Model Enhancing Cyclase Specificity Prediction
 This repository contains all the source code for predicting substrate selectivity of lasso cyclase using protein language model.
 
 ## Repository Structure
