@@ -15,9 +15,12 @@ This repository contains all the source code for predicting substrate selectivit
 - Model Verification and Optimization
   - `tSNE-plot.py`: visualize the training data and new experimental verified data sets
 
+- Antimicrobial activity prediction
+  - `Antimicrobial_activity_prediction.py`: predict the antimicrobial activity of lasso peptide on LassoESM embeddings
+
 - A general model for predicting lasso peptide and lasso cyclase pairs
   - `predict_cyclase_peptide_pairs`: a general model (MLP) to predict cyclase(embedded by VanillaESM)-peptide(embedded by LassoESM) pairs
-  - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a cross-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
+  - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a crUbonodin_antimicrobial_activity_predictionoss-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
 
 ## Dependency
 To set up the environment for this project, use the provided `environment.yml` file. This file contains all necessary dependencies.
