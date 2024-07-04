@@ -1,5 +1,5 @@
 # Example
-This folder contains an example with Cyclase/Lasso peptide sequence file and the code for get embeddings from LassoESM and the general model for predicting cyclase-lasso peptide pairs.
+This folder contains an example with Cyclase/Lasso peptide sequence file and the code for extracting embeddings from LassoESM and predicting cyclase-lasso peptide pairs.
 
 - Data
   - `Cyclase_LassoPeptide_pairs_test.csv`: Contains cyclase and lasso peptide sequences for testing
