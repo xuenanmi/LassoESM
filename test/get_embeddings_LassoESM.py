@@ -38,7 +38,7 @@ if __name__ == "__main__":
    # Set the model to evaluation mode
    model.eval()
    # Extract embeddings for sequences initial dataset
-   data = pd.read_csv('Cyclase_substrate_pairs_test.csv')
+   data = pd.read_csv('Cyclase_LassoPeptide_pairs_test.csv')
    seq_embs = []
    seq_ls = data.iloc[:,1].tolist()
    print(len(seq_ls))
