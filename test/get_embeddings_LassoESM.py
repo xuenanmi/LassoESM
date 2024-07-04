@@ -3,14 +3,14 @@ import random
 from tqdm import tqdm
 import numpy as np
 import pandas as pd
-from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoTokenizer, AutoModelForMaskedLM, DataCollatorForLanguageModeling
+from transformers import AutoModelForSequenceClassification, Trainer, AutoModel, TrainingArguments, AutoTokenizer, AutoModelForMaskedLM, DataCollatorForLanguageModeling
 from datasets import Dataset
 from collections import Counter
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load pre-trained model and tokenizer from the checkpoint
-model = AutoModelForMaskedLM.from_pretrained("../RODEO_high_score_ESM/checkpoint-3592").to(device)  #the checkpoint is saved in huggingface
-tokenizer = AutoTokenizer.from_pretrained("../RODEO_high_score_ESM/checkpoint-3592")
+model = AutoModelForMaskedLM.from_pretrained("xmi4/LassoESM").to(device)  #the checkpoint is saved in huggingface
+tokenizer = AutoTokenizer.from_pretrained("xmi4/LassoESM")
 
 
 def get_mean_rep(sequence):
@@ -38,7 +38,7 @@ if __name__ == "__main__":
    # Set the model to evaluation mode
    model.eval()
    # Extract embeddings for sequences initial dataset
-   data = pd.read_csv('Cyclase_substrate_pairs_pos_neg.csv')
+   data = pd.read_csv('Cyclase_substrate_pairs_test.csv')
    seq_embs = []
    seq_ls = data.iloc[:,1].tolist()
    print(len(seq_ls))
