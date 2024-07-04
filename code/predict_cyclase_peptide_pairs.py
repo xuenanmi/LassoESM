@@ -93,8 +93,8 @@ if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Load data
-    Cyclase = np.load('All_cyclase_RODEO_from_VanillaESM.npy')
-    substrate = np.load('lasso_RODEO_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+    Cyclase = np.load('All_cyclase_RODEO_from_VanillaESM.npy')   # Embeddings of Cyclase (from VanillaESM), shape of matrix is [The number of cyclase, 1280]
+    substrate = np.load('lasso_RODEO_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy') # Embeddings of lasso peptides (from LassoESM), shape of matrix is [The number of lasso peptides, 1280] 
     
     # Combine Cyclase and substrate data
     Cyclase_substrate = [np.concatenate((Cyclase[i, :], substrate[i, :])) for i in range(Cyclase.shape[0])]
