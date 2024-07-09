@@ -54,7 +54,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 # Training loop with early stopping
 best_val_loss = float('inf')
 patience = 10
-trigger_times = 0
+count = 0
 
 for epoch in range(100):
     model.train()
