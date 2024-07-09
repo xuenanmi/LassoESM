@@ -84,13 +84,13 @@ for epoch in range(100):
     # Early stopping
     if val_loss < best_val_loss:
         best_val_loss = val_loss
-        trigger_times = 0
+        count = 0
         # Save the best model
         torch.save(model.state_dict(), 'best_model.pth')
     else:
-        trigger_times += 1
+        count += 1
 
-    if trigger_times >= patience:
+    if count >= patience:
         print('Early stopping!')
         break
 
