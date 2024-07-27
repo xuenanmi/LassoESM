@@ -54,7 +54,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 # Training loop with early stopping
 best_val_loss = float('inf')
 patience = 10
-count = 0
+trigger_times = 0
 
 for epoch in range(100):
     model.train()
@@ -84,13 +84,13 @@ for epoch in range(100):
     # Early stopping
     if val_loss < best_val_loss:
         best_val_loss = val_loss
-        count = 0
+        trigger_times = 0
         # Save the best model
         torch.save(model.state_dict(), 'best_model.pth')
     else:
-        count += 1
+        trigger_times += 1
 
-    if count >= patience:
+    if trigger_times >= patience:
         print('Early stopping!')
         break
 
