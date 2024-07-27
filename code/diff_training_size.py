@@ -20,12 +20,10 @@ def model_performance(X_test, y_test):
     Returns:
         list: Mean balanced accuracy and ROC AUC scores.
     """
-    pca = PCA(n_components = 100) 
-    Xs_pca = pca.fit_transform(X_test)
     cv = RepeatedKFold(n_splits=10, n_repeats=3)
     SVM = SVC(C = 10, kernel = 'linear')
-    SVC_CV_acc = cross_val_score(SVM, Xs_pca, y_test, cv = cv, n_jobs = 10, scoring = 'balanced_accuracy')
-    SVC_CV_auc = cross_val_score(SVM, Xs_pca, y_test, cv = cv, n_jobs = 10, scoring = 'roc_auc')
+    SVC_CV_acc = cross_val_score(SVM, X_test, y_test, cv = cv, n_jobs = -1, scoring = 'balanced_accuracy')
+    SVC_CV_auc = cross_val_score(SVM, X_test, y_test, cv = cv, n_jobs = -1, scoring = 'roc_auc')
     return [np.mean(SVC_CV_acc), np.mean(SVC_CV_auc)]
     
 if __name__ == "__main__":
@@ -64,24 +62,24 @@ if __name__ == "__main__":
    auc_sd = np.array(auc_sd) 
    
    f, axs = plt.subplots(ncols=1, nrows=1, figsize=(10,7))
+
    # Plotting the first scatter plot
-   plt.plot(x, auc_mean, marker='o', linestyle='-', color='#C85289', label='AUROC', linewidth=4, markersize=6)
-   plt.fill_between(x, auc_mean - auc_sd, auc_mean + auc_sd, color='#E59FB4', alpha = 0.6)
+   plt.plot(x, auc_mean, marker='^', linestyle='-', color='#66A182', label='AUROC', linewidth=4, markersize=7)
+   plt.fill_between(x, auc_mean - auc_sd, auc_mean + auc_sd, color='#A8D5BA', alpha=0.6)
+
    # Plotting the second scatter plot
-   plt.plot(x, acc_mean, marker='o', linestyle='-',color='#459BB8', label='Balanced Accuracy', linewidth=4, markersize=6)
-   plt.fill_between(x, acc_mean - acc_sd, acc_mean + acc_sd, color='#ABCFE3', alpha = 0.6)
+   plt.plot(x, acc_mean, marker='o', linestyle='--', color='#66A182', label='Balanced Accuracy', linewidth=4, markersize=7)
+   plt.fill_between(x, acc_mean - acc_sd, acc_mean + acc_sd, color='#A8D5BA', alpha=0.6)
+
    for spine in ['bottom', 'left', 'top', 'right']:
-       axs.spines[spine].set_linewidth(2)
-   plt.ylim(0.6, 0.9)
-   plt.yticks([0.6,0.65, 0.7,0.75, 0.8,0.85 ,0.9], fontsize = 15)
-   plt.xticks(fontsize=15)
-   # Adding labels and title
+      axs.spines[spine].set_linewidth(2)
+   plt.ylim(0.65, 0.9)
+   plt.yticks([0.65, 0.7,0.75, 0.8,0.85 ,0.9], fontsize = 20)
+   plt.xticks(fontsize=20)
+   # Adding labels and legend
    plt.xlabel('Fraction of training data used',  fontsize=20)
    plt.ylabel('AUROC or Accuracy',  fontsize=20)
-   plt.legend(fontsize = 'x-large', loc = 'lower right', title = 'LassoESM', title_fontsize ='xx-large')
+   plt.legend(fontsize = 'x-large', loc = 'lower right')
    plt.tight_layout()
-   plt.savefig('LassoESM_diff_train_size.png', dpi = 300)
-
-
-
+   plt.savefig('LassoESM_diff_train_size_new.png', dpi = 300)
 
