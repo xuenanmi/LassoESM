@@ -169,11 +169,11 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, epochs=25
         if min_val_loss > val_loss:
             print(f'Val Loss Decreased({min_val_loss:.4f} to {val_loss:.4f}) Saving The Model')
             min_val_loss = val_loss
-            torch.save(model.state_dict(), 'saved_best_model.pth')
+            torch.save(model.state_dict(), 'saved_best_model_for_non_natural_pairs.pth')
 
 
 def predict_with_model(model, dataloader):
-    model.load_state_dict(torch.load("saved_best_model.pth"))
+    model.load_state_dict(torch.load("saved_best_model_for_non_natural_pairs.pth"))
     model.eval()
     all_probs = []
     all_preds = []
