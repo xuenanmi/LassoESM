@@ -10,7 +10,7 @@ print(df.shape)
 # Shuffle the entire DataFrame before generating negative pairs
 df = df.sample(frac=1, random_state=12).reset_index(drop=True)
 
-# Function to generate negative pairs without reusing core sequences
+# Function to generate negative pairs 
 def generate_negative_pairs(df):
     negative_pairs = []
     used_cores = set()  # To keep track of used core sequences
