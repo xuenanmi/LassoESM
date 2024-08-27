@@ -20,7 +20,7 @@ This repository contains all the source code for predicting substrate selectivit
   - `predict_cyclase_peptide_pairs`: a general model (MLP) to predict cyclase(embedded by VanillaESM)-peptide(embedded by LassoESM) pairs
   - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a crUbonodin_antimicrobial_activity_predictionoss-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
 
-- Downstream task 3: antimicrobial_activity_prediction_for
+- Downstream task 3: antimicrobial_activity_prediction
   - `antimicrobial_activity_prediction_Ubonodin.py`: predict the antimicrobial activity of lasso peptide using LassoESM embeddings
 
 ## Dependency
