@@ -8,7 +8,7 @@ This repository contains all the source code for predicting substrate selectivit
   - `LassoESM_pretraining.py`: Pretraining Lasso Peptide-Specific Language Model
   - `get_embeddings_LassoESM`: extract embeddings for peptide variants in training set from LassoESM, then feed them into various downstream classification models
     
-- Downstream task1: cyclase_specificity_prediction  
+- Downstream task 1: cyclase_specificity_prediction  
   - `hyperparameter_optimization_ML_FusA.py`: grid-search for hyperparameters of downstream classification models
   - `downstream_models_performance_diff_3embs.py`: compare downstream model performance with different embeddings (VanillaESM, PeptideESM, LassoESM)
   - `diff_training_size.py`: evaulate downstream model performance using different training size
