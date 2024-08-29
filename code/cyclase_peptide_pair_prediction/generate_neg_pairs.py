@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 
+# Load the natural cyclase-lasso peptide pairs (positive samples)
 data = pd.read_excel('SOAL5_1_finalized_HVR_SI.xlsx')
 selected_data = data[['Cyclase sequence','Core','Acceptor site','Acceptor residue']]
 selected_data1 = selected_data.dropna(how = 'any')
