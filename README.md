@@ -16,7 +16,7 @@ This repository contains all the source code for predicting substrate selectivit
   - `tSNE-plot.py`: visualize the training data and new experimental verified data sets
 
 - Downstream task 2: cycalse_peptide_pair_prediction
-  - `generate_neg_pairs.py`: generate the synthetic cyclase-peptide pairs (negative samples)
+  - `generate_negative_cyclase_peptide_pairs.py`: generate the synthetic cyclase-peptide pairs (negative samples)
   - `predict_cyclase_peptide_pairs`: a general model (MLP) to predict cyclase(embedded by VanillaESM)-peptide(embedded by LassoESM) pairs
   - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a crUbonodin_antimicrobial_activity_predictionoss-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
 
