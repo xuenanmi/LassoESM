@@ -191,7 +191,7 @@ if __name__ == "__main__":
     LassoESM_model.eval()
 
     # Load labels
-    data = pd.read_csv('Cyclase_substrate_pairs_pos_neg.csv')
+    data = pd.read_csv('Cyclase_substrate_pairs_pos_neg_with_filter.csv')
     Cyclase_seq = data.iloc[:, 0].tolist()
     substrate_seq = data.iloc[:, 1].tolist()
     labels = data.iloc[:, 2].tolist()
