@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
 
     # Load training/validation data
-    train_val_data = pd.read_csv('Cyclase_substrate_pairs_pos_neg_with_filter.csv') #FusC and other natural lasso peptide pairs (with acceptor residue E)
+    train_val_data = pd.read_csv('Cyclase_substrate_pairs_pos_neg_with_filter.csv') 
     Cyclase_seq_train_val = train_val_data.iloc[:, 0].tolist()
     substrate_seq_train_val = train_val_data.iloc[:, 1].tolist()
     labels_train_val = train_val_data.iloc[:, 2].tolist()
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     max_substrate_length = max(len(seq) for seq in substrate_seq_train_val) + 2    
 
     # Load test data
-    test_data = pd.read_csv('test_set_non_natural_Fus_with_filter.csv')
+    test_data = pd.read_csv('test_set_non_natural_Fus_with_filter.csv') #FusC and other natural lasso peptide pairs (with acceptor residue E)
     Cyclase_seq_test = test_data.iloc[:, 0].tolist()
     substrate_seq_test = test_data.iloc[:, 1].tolist()
 
