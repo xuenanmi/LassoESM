@@ -30,7 +30,7 @@ Lasso_seq_train = Lasso_seq[:split_index]
 Lasso_seq_test = Lasso_seq[split_index:]
 
 
-# Define LoRA configuration targeting the last layer (usually the output layer or specific projection layers)
+# Define LoRA configuration (Parameter-efficient fine-tuning method)
 lora_config = LoraConfig(
     r=4,               # Rank of the LoRA matrix
     lora_alpha=1,     # Scaling factor for the LoRA weights
