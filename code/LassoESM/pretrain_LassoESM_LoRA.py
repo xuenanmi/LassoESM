@@ -50,6 +50,9 @@ total_params = sum(p.numel() for p in model.parameters())
 print(f"Trainable parameters: {trainable_params}")
 print(f"Total parameters: {total_params}")
 print(f"Percentage of trainable parameters: {100 * trainable_params / total_params:.2f}%")
+#Trainable parameters: 3520034
+#Total parameters: 655408054
+#Percentage of trainable parameters: 0.54%
 
 # Create a data collator for language modeling with a masking probability of 0.15
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=True, mlm_probability=0.15)
