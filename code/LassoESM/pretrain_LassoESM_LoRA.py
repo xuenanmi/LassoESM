@@ -22,7 +22,7 @@ random.shuffle(Lasso_seq)
 # Calculate the maximum sequence length in Lasso_seq
 max_seq_length = max(len(seq) for seq in Lasso_seq)
 print(f"Maximum sequence length: {max_seq_length}")
-#max_seq_length = 512
+#max_seq_length = 268
 
 # Split the data into training and testing sets (80% train, 20% test)
 split_index = int(len(Lasso_seq) * 0.8)
