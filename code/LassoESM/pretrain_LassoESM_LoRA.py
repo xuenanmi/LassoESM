@@ -106,7 +106,6 @@ for log in training_logs:
     if "eval_loss" in log:  # Validation loss
         eval_loss.append(log["eval_loss"])
 
-
 print(train_loss)
 print(eval_loss)
 print(epochs)
@@ -120,7 +119,7 @@ loss_df = pd.DataFrame({
 
 loss_df.to_csv('training_validation_losses.csv', index=False)
 
-
+# Plot training loss and validation
 loss_df = pd.read_csv('training_validation_losses.csv')
 epochs = list(range(1,21))
 train_loss = loss_df['Training Loss']
@@ -142,11 +141,7 @@ plt.ylabel('Loss', fontsize = 20)
 #plt.title('Training and Validation Loss')
 plt.legend()
 plt.savefig('LassoESM_Pretraining_LoRA_Train_Val_loss.png', dpi = 300)
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('Training and Validation Loss')
-plt.legend()
-plt.savefig('LassoESM_Pretraining_LoRA_Train_Val_loss.png', dpi = 300)
+
 
 
 
