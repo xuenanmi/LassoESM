@@ -71,7 +71,7 @@ args = TrainingArguments(
     optim="adamw_torch",          
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=2,
+    num_train_epochs=20,
     weight_decay=0.01,
     load_best_model_at_end=True,
     push_to_hub=False,
@@ -90,8 +90,6 @@ trainer = Trainer(
 # Start training the model
 trainer.train()
 
-
-
 # Extract the logs from the Trainer's state
 training_logs = trainer.state.log_history
 
@@ -108,24 +106,44 @@ for log in training_logs:
     if "eval_loss" in log:  # Validation loss
         eval_loss.append(log["eval_loss"])
 
+
 print(train_loss)
 print(eval_loss)
 print(epochs)
 
 # Save the losses to a CSV file
 loss_df = pd.DataFrame({
-    'Epoch': epochs[:len(train_loss)],
+    'Epoch': epochs,
     'Training Loss': train_loss,
-    'Validation Loss': eval_loss + [None] * (len(train_loss) - len(eval_loss))  # Fill with None if fewer validation losses
+    'Validation Loss': eval_loss[:len(train_loss)]
 })
 
 loss_df.to_csv('training_validation_losses.csv', index=False)
 
-# Plot the losses
-plt.figure(figsize=(10, 6))
-plt.plot(epochs, train_loss, label='Training Loss')
-plt.plot(epochs[:len(eval_loss)], eval_loss, label='Validation Loss')  # Validation loss is typically less frequent
 
+loss_df = pd.read_csv('training_validation_losses.csv')
+epochs = list(range(1,21))
+train_loss = loss_df['Training Loss']
+eval_loss = loss_df['Validation Loss']
+print(len(epochs))
+print(len(train_loss))
+print(len(eval_loss))
+
+# Plot the losses
+f ,ax  = plt.subplots(ncols=1, nrows=1, figsize=(10,7))
+plt.plot(epochs, train_loss, marker='o', linestyle='-',linewidth=4, markersize=6, label='Training Loss')
+plt.plot(epochs, eval_loss, marker='o', linestyle='-', linewidth=4, markersize=6,label='Validation Loss') 
+ax.spines['bottom'].set_linewidth(2)
+ax.spines['left'].set_linewidth(2)
+ax.spines['top'].set_linewidth(2)
+ax.spines['right'].set_linewidth(2)
+plt.xticks(list(range(1,21)),fontsize=15)
+plt.yticks([2.0, 2.1, 2.2, 2.3, 2.4, 2.5],fontsize=15)
+plt.xlabel('Epoch',fontsize = 20)
+plt.ylabel('Loss', fontsize = 20)
+#plt.title('Training and Validation Loss')
+plt.legend()
+plt.savefig('LassoESM_Pretraining_LoRA_Train_Val_loss.png', dpi = 300)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Training and Validation Loss')
