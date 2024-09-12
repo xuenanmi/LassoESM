@@ -128,7 +128,7 @@ print(len(epochs))
 print(len(train_loss))
 print(len(eval_loss))
 
-# Plot the losses
+# Plot the training and validation loss
 f ,ax  = plt.subplots(ncols=1, nrows=1, figsize=(10,7))
 plt.plot(epochs, train_loss, marker='o', linestyle='-',linewidth=4, markersize=6, label='Training Loss')
 plt.plot(epochs, eval_loss, marker='o', linestyle='-', linewidth=4, markersize=6,label='Validation Loss') 
