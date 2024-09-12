@@ -28,7 +28,7 @@ parameters_list = [
     {'classifier__n_neighbors': [5, 10, 25, 50], 'classifier__weights': ('uniform', 'distance')},
     {'classifier__n_estimators': [20, 50, 100, 200], 'classifier__max_depth': [10,20,50,100], 'classifier__max_features':('sqrt','log2')},
     {'classifier__n_estimators': [20, 50, 100, 200], 'classifier__learning_rate': [0.1, 1, 5, 10]},
-    {'classifier__kernel':('linear', 'rbf'), 'classifier__C':[0.1, 1, 10]},
+    {'classifier__kernel':('linear', 'rbf', 'sigmoid','poly'), 'classifier__C':[0.1, 1, 10]},
     {'classifier__hidden_layer_sizes': [32,64,128,256,512, (512, 64), (256, 32), (128,32)], 'classifier__batch_size':[16,32], 'classifier__learning_rate_init':[0.01, 0.001], 'classifier__max_iter':[1000], 'classifier__early_stopping':[True]},
 ]
 
@@ -36,7 +36,7 @@ parameters_list = [
 for model, name, parameters in zip(model_list, model_names, parameters_list):
     result_list = []
     steps = [
-        ('pca', PCA(n_components=100)),
+        #('pca', PCA(n_components=100)),
         ('classifier', model())
     ]
     pipeline = Pipeline(steps)
