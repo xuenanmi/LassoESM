@@ -1,6 +1,6 @@
 # LassoESM: A tailored language model to enhance lasso peptide property prediction
 
-![LassoESM](workflow.png) 
+![LassoESM](LassoESM_image.png) 
 
 
 ## Repository Structure
