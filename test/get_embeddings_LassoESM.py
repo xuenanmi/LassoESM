@@ -9,8 +9,8 @@ from collections import Counter
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load pre-trained model and tokenizer from the checkpoint
-model = AutoModelForMaskedLM.from_pretrained("xmi4/LassoESM").to(device)  #the checkpoint is saved in huggingface
-tokenizer = AutoTokenizer.from_pretrained("xmi4/LassoESM")
+model = AutoModelForMaskedLM.from_pretrained("ShuklaGroupIllinois/LassoESM").to(device)  #the checkpoint is saved in huggingface
+tokenizer = AutoTokenizer.from_pretrained("ShuklaGroupIllinois/LassoESM")
 
 
 def get_mean_rep(sequence):
