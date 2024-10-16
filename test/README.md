@@ -5,5 +5,5 @@ This folder contains an example with Cyclase/Lasso peptide sequence file and the
   - `Cyclase_LassoPeptide_pairs_test.csv`: Contains cyclase and lasso peptide sequences for testing
     
 - Code
-  - `get_embeddings_LassoESM`: Extracts embeddings for lasso peptide variants using the LassoESM model on Hugging Face (https://huggingface.co/xmi4/LassoESM)
+  - `get_embeddings_LassoESM`: Extracts embeddings for lasso peptide variants using the LassoESM model on Hugging Face (https://huggingface.co/ShuklaGroupIllinois/LassoESM)
   - `predict_cyclase_peptide_pairs_with_CrossAttention`: Predicts cyclase-lasso peptide pairs using a cross-attention layer
