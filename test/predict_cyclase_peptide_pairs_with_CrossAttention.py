@@ -186,8 +186,8 @@ if __name__ == "__main__":
     esm_model = AutoModelForMaskedLM.from_pretrained("facebook/esm2_t33_650M_UR50D").to(device)
     esm_tokenizer = AutoTokenizer.from_pretrained("facebook/esm2_t33_650M_UR50D")
     esm_model.eval()
-    LassoESM_model = AutoModelForMaskedLM.from_pretrained("xmi4/LassoESM").to(device)
-    LassoESM_tokenizer = AutoTokenizer.from_pretrained("xmi4/LassoESM")
+    LassoESM_model = AutoModelForMaskedLM.from_pretrained("ShuklaGroupIllinois/LassoESM").to(device)
+    LassoESM_tokenizer = AutoTokenizer.from_pretrained("ShuklaGroupIllinois/LassoESM")
     LassoESM_model.eval()
 
     # Load labels
