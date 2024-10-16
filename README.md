@@ -18,7 +18,7 @@
 - Downstream task 2: cycalse_peptide_pair_prediction
   - `generate_negative_cyclase_peptide_pairs.py`: generate the synthetic cyclase-peptide pairs (negative samples)
   - `predict_cyclase_peptide_pairs`: a general model (MLP) to predict cyclase(embedded by VanillaESM)-peptide(embedded by LassoESM) pairs
-  - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a crUbonodin_antimicrobial_activity_predictionoss-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
+  - `predict_cyclase_peptide_pairs_with_CrossAttention`: add a cross-attention layer, where lasso peptide embeddings reweight its corresponding cyclase embeddings
 
 - Downstream task 3: antimicrobial_activity_prediction
   - `antimicrobial_activity_prediction_Ubonodin.py`: predict the antimicrobial activity of lasso peptide using LassoESM embeddings
