@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 # Load sequences from an Excel file
-df = pd.read_excel('RODEO_seq_high_score.xlsx')
+df = pd.read_excel('../data/RODEO_seq_high_score.xlsx')
 
 # Extract the 'Core' column which contains the sequences
 Lasso_seq_tmp = df['Core'].tolist()
