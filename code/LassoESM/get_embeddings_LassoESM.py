@@ -38,7 +38,7 @@ if __name__ == "__main__":
    # Set the model to evaluation mode
    model.eval()
    # Extract embeddings for sequences initial dataset
-   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
+   data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
    seq_embs = []
    seq_ls = data.iloc[:,0].tolist()
    print(len(seq_ls))
