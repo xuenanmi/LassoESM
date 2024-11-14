@@ -10,8 +10,8 @@ from scipy.stats import pearsonr, spearmanr
 import matplotlib.pyplot as plt
 
 # Load data
-data = pd.read_csv('Deeplasso_full_seq_with_score.csv')    # Ubonodin dataset collected from paper "High-Throughput Screen Reveals the Structure–Activity Relationship of the Antimicrobial Lasso Peptide Ubonodin" ACS Cent. Sci. 2023
-Xs = np.load('Deeplasso_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')  # LassoESM embeddings for Ubonodin dataset (remove the sequences with stop codons)
+data = pd.read_csv('../date/Deeplasso_full_seq_with_score.csv')    # Ubonodin dataset collected from paper "High-Throughput Screen Reveals the Structure–Activity Relationship of the Antimicrobial Lasso Peptide Ubonodin" ACS Cent. Sci. 2023
+Xs = np.load('../data/Deeplasso_embs_from_LassoESM.npy')  # LassoESM embeddings for Ubonodin dataset (remove the sequences with stop codons)
 ys = data.iloc[:, 1].values
 
 # Convert data to PyTorch tensors
