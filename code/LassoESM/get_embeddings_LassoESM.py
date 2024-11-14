@@ -47,4 +47,4 @@ if __name__ == "__main__":
        seq_embs.append(get_mean_rep(seq))
    seq_embs = np.array(seq_embs)
    print(seq_embs.shape)
-   np.save('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy', seq_embs) 
+   np.save('../data/FusA_LassoESM.npy', seq_embs) 
