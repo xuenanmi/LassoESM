@@ -94,7 +94,6 @@ dependencies:
   - libbrotlicommon=1.0.9=h166bdaf_8
   - libbrotlidec=1.0.9=h166bdaf_8
   - libbrotlienc=1.0.9=h166bdaf_8
-  - libclang=10.0.1=default_hb85057a_2
   - libcublas=11.11.3.6=0
   - libcufft=10.9.0.58=0
   - libcufile=1.6.0.25=0
@@ -267,19 +266,30 @@ dependencies:
   - zlib-ng=2.0.7=h0b41bf4_0
   - zstd=1.5.2=h3eb15da_6
   - pip:
+    - absl-py==2.1.0
     - accelerate==0.29.3
     - aiohttp==3.8.4
     - aiosignal==1.3.1
     - ankh==1.0.0
+    - aplus==0.11.0
+    - astropy==6.1.4
+    - astropy-iers-data==0.2024.10.21.0.33.21
     - asttokens==2.2.1
     - async-timeout==4.0.2
     - attrs==22.2.0
     - backcall==0.2.0
     - biopython==1.81
     - bitsandbytes==0.43.1
+    - blake3==0.4.1
     - boto3==1.26.146
     - botocore==1.29.146
+    - bqplot==0.12.43
+    - branca==0.8.0
+    - cachetools==5.5.0
     - captum==0.6.0
+    - cloudpickle==3.1.0
+    - comm==0.2.2
+    - dask==2024.10.0
     - datasets==2.11.0
     - decorator==5.1.1
     - dill==0.3.6
@@ -288,29 +298,65 @@ dependencies:
     - evaluate==0.4.0
     - executing==1.2.0
     - fair-esm==2.0.0
+    - flatbuffers==24.3.25
+    - frozendict==2.4.6
     - frozenlist==1.3.3
     - fsspec==2023.4.0
+    - future==1.0.0
     - galore-torch==1.0
+    - gast==0.6.0
+    - google-pasta==0.2.0
+    - grpcio==1.67.0
+    - h5py==3.12.1
+    - httptools==0.6.4
     - huggingface-hub==0.22.2
     - imbalanced-learn==0.10.1
+    - ipydatawidgets==4.3.5
+    - ipyleaflet==0.19.2
+    - ipympl==0.9.4
     - ipython==8.12.0
+    - ipython-genutils==0.2.0
+    - ipyvolume==0.6.3
+    - ipyvue==1.11.1
+    - ipyvuetify==1.10.0
+    - ipywebrtc==0.6.0
+    - ipywidgets==8.1.5
     - jedi==0.18.2
     - jmespath==1.0.1
+    - jupyter-leaflet==0.19.2
+    - jupyterlab-widgets==3.0.13
+    - keras==3.6.0
+    - libclang==18.1.1
+    - llvmlite==0.43.0
     - lmdb==1.4.1
+    - locket==1.0.0
+    - markdown==3.7
     - matplotlib-inline==0.1.6
+    - ml-dtypes==0.4.1
     - multidict==6.0.4
     - multiprocess==0.70.14
+    - namex==0.0.8
+    - nest-asyncio==1.6.0
     - neuropredplm==0.1.0
+    - numba==0.60.0
+    - opt-einsum==3.4.0
+    - optree==0.13.0
     - packaging==23.0
-    - pandas==2.0.0
+    - pandas==2.2.3
     - parso==0.8.3
+    - partd==1.4.2
     - pickleshare==0.7.5
+    - progressbar2==4.5.0
     - prompt-toolkit==3.0.38
     - protobuf==3.20.3
     - pure-eval==0.2.2
     - pyarrow==11.0.0
+    - pyerfa==2.0.1.4
     - pygments==2.14.0
     - pyqt5-sip==12.11.0
+    - python-dotenv==1.0.1
+    - python-utils==3.9.0
+    - pythreejs==2.4.2
     - rdkit==2023.3.1
     - regex==2023.3.23
     - responses==0.18.0
@@ -320,13 +366,36 @@ dependencies:
     - sentencepiece==0.1.97
     - shtab==1.7.1
     - stack-data==0.6.2
+    - tabulate==0.9.0
     - tape-proteins==0.5
+    - tensorboard==2.17.1
+    - tensorboard-data-server==0.7.2
     - tensorboardx==2.6
+    - tensorflow==2.17.0
+    - tensorflow-io-gcs-filesystem==0.37.1
+    - termcolor==2.5.0
     - tokenizers==0.19.1
+    - toolz==1.0.0
+    - traittypes==0.2.1
     - transformers==4.40.1
     - trl==0.8.6
+    - tslearn==0.6.3
     - typing-extensions==4.11.0
     - tyro==0.8.3
+    - uvloop==0.21.0
+    - vaex-astro==0.9.3
+    - vaex-core==4.17.1
+    - vaex-hdf5==0.14.1
+    - vaex-jupyter==0.8.2
+    - vaex-ml==0.18.3
+    - vaex-server==0.9.0
+    - vaex-viz==0.5.4
+    - watchfiles==0.24.0
+    - werkzeug==3.0.4
+    - widgetsnbextension==4.0.13
+    - wrapt==1.16.0
+    - xarray==2024.9.0
     - xxhash==3.2.0
+    - xyzservices==2024.9.0
     - yarl==1.8.2
 prefix: /home/xuenan/anaconda3/envs/py310
