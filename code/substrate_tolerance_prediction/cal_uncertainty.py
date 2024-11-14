@@ -20,8 +20,8 @@ def percentage_true_prediction(test_fraction):
         Lists of true prediction percentages and false prediction percentages for each probability bin.
     """
     
-    Xs = np.load('../data/exp_data_embeddings/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
-    data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
+    Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+    data = pd.read_excel('../data/FusA_tolerance_dataset.csv')
     ys = data.iloc[:,1].tolist()
     # Split data into training and test sets
     Xs_train, Xs_test, ys_train, ys_test = train_test_split(Xs, ys, stratify=ys, test_size= test_fraction)
