@@ -11,7 +11,7 @@ import trl
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load sequences from an Excel file
-df = pd.read_excel('../data/RODEO_seq_high_score.xlsx')
+df = pd.read_excel('../data/RODEO_seq_high_score.xlsx')        #Lasso peptide sequences predicted from RODEO 2.0 (https://webtool.ripp.rodeo/) 
 
 # Extract the 'Core' column which contains the sequences
 Lasso_seq_tmp = df['Core'].tolist()
