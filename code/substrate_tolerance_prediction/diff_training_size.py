@@ -28,8 +28,8 @@ def model_performance(X_test, y_test):
     
 if __name__ == "__main__":
    # Load data
-   Xs = np.load('../data/exp_data_embeddings/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
-   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
+   Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+   data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
    ys = data.iloc[:,1].tolist()
 
    diff_train_size_acc, diff_train_size_auc = [], []
