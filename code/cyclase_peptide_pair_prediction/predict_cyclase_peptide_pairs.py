@@ -101,7 +101,7 @@ if __name__ == "__main__":
     Xs = np.array(Cyclase_substrate)
 
     # Load labels
-    data = pd.read_csv('Cyclase_substrate_pairs_pos_neg.csv')
+    data = pd.read_csv('Cyclase_substrate_pairs_pos_neg_with_filter.csv')
     ys = data.iloc[:, 2].tolist()
     
     # Split data into train, validation, and test sets
