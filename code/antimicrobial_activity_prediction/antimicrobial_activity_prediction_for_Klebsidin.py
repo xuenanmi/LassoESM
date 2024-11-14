@@ -23,7 +23,7 @@ models = {
         'best_model': Pipeline(steps=[('regressor', AdaBoostRegressor(learning_rate=1, n_estimators=100))])
     },
     'LassoESM': {
-        'Xs': np.load('klebsidin_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy'),
+        'Xs': np.load('klebsidin_embs_from_LassoESM.npy'),
         'best_model': Pipeline(steps=[('regressor', AdaBoostRegressor(learning_rate=1, n_estimators=200))])
     }
 }
