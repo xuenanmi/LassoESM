@@ -15,7 +15,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 
 # Load data
-data = pd.read_excel("../data/231130_FusA_Mutants_SEBedit.xlsx")
+data = pd.read_csv("../data/FusA_tolerance_dataset.csv")
 seqs = data.iloc[:,0].tolist()
 Xs = np.load("../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy")
 ys = data.iloc[:,1].tolist()
