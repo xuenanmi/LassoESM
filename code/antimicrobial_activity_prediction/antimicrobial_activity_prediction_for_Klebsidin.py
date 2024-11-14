@@ -9,21 +9,21 @@ from sklearn.ensemble import AdaBoostRegressor
 from sklearn.pipeline import Pipeline
 
 # Load the dataset
-data = pd.read_csv('klebsidin_enrichment_score.csv')
+data = pd.read_csv('../data/klebsidin_enrichment_score.csv')
 ys = data.iloc[:, 1].tolist()
 
 # Define a dictionary of embeddings and corresponding best models
 models = {
     'VanillaESM': {
-        'Xs': np.load('klebsidin_embs_from_VanillaESM.npy'),
+        'Xs': np.load('../data/klebsidin_embs_from_VanillaESM.npy'),
         'best_model': Pipeline(steps=[('regressor', AdaBoostRegressor(learning_rate=1, n_estimators=100))])
     },
     'PeptideESM': {
-        'Xs': np.load('klebsidin_embs_from_PeptideESM.npy'),
+        'Xs': np.load('../data/klebsidin_embs_from_PeptideESM.npy'),
         'best_model': Pipeline(steps=[('regressor', AdaBoostRegressor(learning_rate=1, n_estimators=100))])
     },
     'LassoESM': {
-        'Xs': np.load('klebsidin_embs_from_LassoESM.npy'),
+        'Xs': np.load('../data/klebsidin_embs_from_LassoESM.npy'),
         'best_model': Pipeline(steps=[('regressor', AdaBoostRegressor(learning_rate=1, n_estimators=200))])
     }
 }
