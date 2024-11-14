@@ -21,7 +21,7 @@ def percentage_true_prediction(test_fraction):
     """
     
     Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
-    data = pd.read_excel('../data/FusA_tolerance_dataset.csv')
+    data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
     ys = data.iloc[:,1].tolist()
     # Split data into training and test sets
     Xs_train, Xs_test, ys_train, ys_test = train_test_split(Xs, ys, stratify=ys, test_size= test_fraction)
