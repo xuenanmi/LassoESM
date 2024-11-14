@@ -10,15 +10,15 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODELS = {
     "Lasso_ESM": {
         "model_path": "ShuklaGroupIllinois/LassoESM",
-        "output_file": "Deeplasso_embs_from_LassoESM.npy",
+        "output_file": "Ubonodin_embs_from_LassoESM.npy",
     },
     "VanillaESM": {
         "model_path": "facebook/esm2_t33_650M_UR50D",
-        "output_file": "Deeplasso_embs_from_VanillaESM.npy",
+        "output_file": "Ubonodin_embs_from_VanillaESM.npy",
     },
     "PeptideESM": {
         "model_path": "ShuklaGroupIllinois/PeptideESM2_650M",
-        "output_file": "Deeplasso_embs_from_PeptideESM.npy",
+        "output_file": "Ubonodin_embs_from_PeptideESM.npy",
     },
 }
 
@@ -59,6 +59,6 @@ def process_embeddings(data_file, model_name):
 
 
 if __name__ == "__main__":
-    data_file = 'Deeplasso_full_seq_with_score.csv'
+    data_file = 'Ubonodin_full_seq_with_score.csv'
     for model_name in MODELS.keys():
         process_embeddings(data_file, model_name)
