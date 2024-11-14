@@ -13,7 +13,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODELS = {
     "Lasso_ESM": {
         "model_path": "ShuklaGroupIllinois/LassoESM",
-        "output_file": "FusA_LassoESM.npy",
+        "output_file": "FusA_LassoESM.npy",                 # The embedding matrix is saved in "data" folder
     },
     "VanillaESM": {
         "model_path": "facebook/esm2_t33_650M_UR50D",
