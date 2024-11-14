@@ -56,7 +56,7 @@ if __name__ == '__main__':
    # Load data
    # Vanilla ESM    
    vanilla_Xs = np.load('../data/vanilla_ESM_embs.npy')
-   data = pd.read_excel('../data/231130_FusA_Mutants_SEBedit.xlsx')
+   data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
    ys = data.iloc[:,1].tolist()
    # Peptide ESM 
    Peptide_Xs = np.load('../data/FusA_embs_from_PeptideESM_650M.npy')
