@@ -2,7 +2,7 @@ import pandas as pd
 import random
 
 # Load the dataset
-data = pd.read_excel('SOAL5_1_finalized_HVR_SI.xlsx')   # natural cycalse-lasso peptide pairs predicted from RODEO
+data = pd.read_excel('Cyclase_peptide_data_RODEO.xlsx')   # natural cycalse-lasso peptide pairs predicted from RODEO
 
 # Select relevant columns and drop rows with missing values
 selected_data = data[['Cyclase sequence', 'Core', 'Acceptor site', 'Acceptor residue']]
