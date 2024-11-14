@@ -28,7 +28,7 @@ def model_performance(X_test, y_test):
     
 if __name__ == "__main__":
    # Load data
-   Xs = np.load('../data/FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
+   Xs = np.load('../data/FusA_LassoESM.npy')
    data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
    ys = data.iloc[:,1].tolist()
 
