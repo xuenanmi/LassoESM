@@ -40,10 +40,10 @@ def cv_res(Xs, ys, RF_estimators, RF_depth, RF_features, Ada_estimators, Ada_lr,
 
 if __name__ == '__main__':
     # Load existing data and embeddings
-    one_hot_Xs = np.load('FusA_one_hot_encoding.npy')
-    vanilla_Xs = np.load('FusA_VanillaESM.npy')
-    Peptide_Xs = np.load('FusA_PeptideESM_650M.npy')
-    rodeo_Xs = np.load('FusA_LassoESM.npy')
+    one_hot_Xs = np.load('../data/FusA_one_hot_encoding.npy')
+    vanilla_Xs = np.load('../data/FusA_VanillaESM.npy')
+    Peptide_Xs = np.load('../data/FusA_PeptideESM_650M.npy')
+    rodeo_Xs = np.load('../data/FusA_LassoESM.npy')
 
     data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
     ys = data.iloc[:, 1].tolist()
