@@ -45,7 +45,7 @@ if __name__ == '__main__':
     Peptide_Xs = np.load('FusA_embs_from_PeptideESM_650M.npy')
     rodeo_Xs = np.load('FusA_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')
 
-    data = pd.read_excel('231130_FusA_Mutants_SEBedit.xlsx')
+    data = pd.read_csv('../data/FusA_tolerance_dataset.csv')
     ys = data.iloc[:, 1].tolist()
      
     # Call cv_res and get results for each embedding type
