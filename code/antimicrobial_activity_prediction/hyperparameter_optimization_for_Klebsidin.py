@@ -12,7 +12,7 @@ from sklearn.neural_network import MLPRegressor
 
 data = pd.read_csv('klebsidin_enrichment_score.csv')
 
-Xs = np.load('klebsidin_embs_from_RODEO_ESM_650M_lr_5e-05_batch_size_8.npy')  #LassoESM embeddings
+Xs = np.load('../data/klebsidin_embs_from_LassoESM.npy')  #LassoESM embeddings
 print(Xs.shape)
 ys = data.iloc[:, 1].tolist()
 print(len(ys))
