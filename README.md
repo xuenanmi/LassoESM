@@ -27,14 +27,13 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
 
 for seq in sequences:
-    # Tokenize with special tokens
     inputs = tokenizer(seq, return_tensors="pt", add_special_tokens=True).to(device)
 
     with torch.no_grad():
         outputs = model(**inputs, output_hidden_states=True)
         last_hidden = outputs.hidden_states[-1][0]  # shape: [seq_len, 1280]
 
-    # Convert input_ids to tokens to check positions
+    # Extract per-residue representations
     tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
 
     # Exclude special tokens [CLS], [EOS] by slicing [1:-1]
