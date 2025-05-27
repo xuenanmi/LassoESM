@@ -1,7 +1,12 @@
 # LassoESM: A tailored language model to enhance lasso peptide property prediction
 
 ![LassoESM](LassoESM_workflow.png) 
-
+## Quick Start
+### Installation
+git clone https://github.com/xuenanmi/LassoESM.git
+cd LassoESM
+conda env create -f environment.yml
+conda activate lassoesm
 
 ## Repository Structure
 - LassoESM
