@@ -107,8 +107,6 @@ Dataset used in the paper
 
 ---
 ## Paper
-
-The methodology and applications of **LassoESM** are described in detail in our manuscript:  
 **[Read the paper here](https://doi.org/10.1101/2024.10.25.620295)**
 ---
 ## Authors
