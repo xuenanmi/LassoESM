@@ -43,7 +43,6 @@ for seq in sequences:
     # Per-sequence embedding: mean over residues
     mean_embedding = residue_embeddings.mean(dim=0)  # shape: [1280]
 
-    print(f"Sequence: {seq}")
     print(f"Per-residue embedding shape: {residue_embeddings.shape}")
     print(f"Per-sequence embedding shape: {mean_embedding.shape}")
 ```
