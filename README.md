@@ -88,7 +88,7 @@ Source code for model training and downstream tasks:
 ---
 
 ### `example_notebook/`  
-Example Jupyter notebooks for key analysis tasks:
+Example Jupyter notebooks for key analysis:
 
 - `extract_embeddings.ipynb`: Demonstrates embedding extraction workflow.
 - `predict_substrate_tolerance.ipynb`: Substrate tolerance classification pipeline.
