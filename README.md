@@ -17,23 +17,21 @@ Below is a minimal example for extracting LassoESM embeddings from a peptide seq
 from transformers import AutoTokenizer, AutoModel
 import torch
 
-# Load LassoESM model
-tokenizer = AutoTokenizer.from_pretrained("xuenanmi/LassoESM")
-model = AutoModel.from_pretrained("xuenanmi/LassoESM")
+# Load LassoESM model from ShuklaGroupIllinois
+tokenizer = AutoTokenizer.from_pretrained("ShuklaGroupIllinois/LassoESM")
+model = AutoModel.from_pretrained("ShuklaGroupIllinois/LassoESM")
 
-sequences = ["GGGFGGGLV", "WYTAEWGLELIFVFPRFI"]  # Example peptide sequences
+sequences = ["WYTAEWGLELIFVFPRFI", "GGAGHVPEYFVGIGTPISFYG"]
 inputs = tokenizer(sequences, return_tensors="pt", padding=True, truncation=True)
 
 with torch.no_grad():
     outputs = model(**inputs)
-    embeddings = outputs.last_hidden_state  # shape: [batch, seq_len, hidden_dim]
+    embeddings = outputs.last_hidden_state
 
-# Mean-pool to get fixed-length embeddings per sequence
 attention_mask = inputs['attention_mask']
 mean_embeddings = (embeddings * attention_mask.unsqueeze(-1)).sum(1) / attention_mask.sum(1, keepdim=True)
 
-print(mean_embeddings.shape)  # shape: [num_sequences, hidden_dim]
-
+print(mean_embeddings.shape)
 ```
 
 ## Repository Structure
