@@ -100,10 +100,10 @@ Example Jupyter notebooks for key analysis tasks:
 ### `data/`  
 Organized datasets for model training and evaluation:
 
-- `data_for_LassoESM_training/`
-- `data_for_substrate_tolerance_prediction/`
-- `data_for_cyclase_peptide_pair_prediction/`
-- `data_for_antimicrobial_activity_prediction/`
+- `data_for_LassoESM_training`
+- `data_for_substrate_tolerance_prediction`
+- `data_for_cyclase_peptide_pair_prediction`
+- `data_for_antimicrobial_activity_prediction`
 
 ---
 
