@@ -2,12 +2,12 @@
 
 ![LassoESM](LassoESM_workflow.png) 
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Quick Start](#quick-start)
   - [Getting started with this repo](#getting-started-with-this-repo)
   - [Usage](#usage)
-- [📁 Repository Structure](#-repository-structure)
+- [Repository Structure](#-repository-structure)
   - [`code/`](#code)
   - [`example_notebook/`](#examplenotebook)
   - [`data/`](#data)
@@ -58,7 +58,7 @@ for seq in sequences:
     print(f"Per-sequence embedding shape: {mean_embedding.shape}")
 ```
 
-## 📁 Repository Structure
+## Repository Structure
 
 ### `code/` 
 Source code for model training and downstream tasks:
