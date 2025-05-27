@@ -2,7 +2,8 @@
 
 ![LassoESM](LassoESM_workflow.png) 
 ## Quick Start
-### Installation
+### Getting started with this repo
+```bash
 git clone https://github.com/xuenanmi/LassoESM.git
 cd LassoESM
 conda env create -f environment.yml
