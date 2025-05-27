@@ -11,6 +11,7 @@ conda activate lassoesm
 ```
 ### Usage
 Extract embeddings from LassoESM
+
 Below is a minimal example for extracting LassoESM embeddings from a peptide sequence list:
 ```bash
 from transformers import AutoTokenizer, AutoModel
