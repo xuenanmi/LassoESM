@@ -17,21 +17,35 @@ Below is a minimal example for extracting LassoESM embeddings from a peptide seq
 from transformers import AutoTokenizer, AutoModel
 import torch
 
-# Load LassoESM model from ShuklaGroupIllinois
+# Load LassoESM model
 tokenizer = AutoTokenizer.from_pretrained("ShuklaGroupIllinois/LassoESM")
 model = AutoModel.from_pretrained("ShuklaGroupIllinois/LassoESM")
+model.eval()
 
 sequences = ["WYTAEWGLELIFVFPRFI", "GGAGHVPEYFVGIGTPISFYG"]
-inputs = tokenizer(sequences, return_tensors="pt", padding=True, truncation=True)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = model.to(device)
 
-with torch.no_grad():
-    outputs = model(**inputs)
-    embeddings = outputs.last_hidden_state
+for seq in sequences:
+    # Tokenize with special tokens
+    inputs = tokenizer(seq, return_tensors="pt", add_special_tokens=True).to(device)
 
-attention_mask = inputs['attention_mask']
-mean_embeddings = (embeddings * attention_mask.unsqueeze(-1)).sum(1) / attention_mask.sum(1, keepdim=True)
+    with torch.no_grad():
+        outputs = model(**inputs, output_hidden_states=True)
+        last_hidden = outputs.hidden_states[-1][0]  # shape: [seq_len, 1280]
 
-print(mean_embeddings.shape)
+    # Convert input_ids to tokens to check positions
+    tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
+
+    # Exclude special tokens [CLS], [EOS] by slicing [1:-1]
+    residue_embeddings = last_hidden[1:-1]  # shape: [L, 1280], L = length of sequence
+
+    # Per-sequence embedding: mean over residues
+    mean_embedding = residue_embeddings.mean(dim=0)  # shape: [1280]
+
+    print(f"Sequence: {seq}")
+    print(f"Per-residue embedding shape: {residue_embeddings.shape}")
+    print(f"Per-sequence embedding shape: {mean_embedding.shape}")
 ```
 
 ## Repository Structure
