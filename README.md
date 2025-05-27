@@ -2,21 +2,6 @@
 
 ![LassoESM](LassoESM_workflow.png) 
 
-## 📚 Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Extract Embeddings](#extract-embeddings)
-  - [Substrate Tolerance Prediction](#substrate-tolerance-prediction)
-  - [Cyclase-Peptide Pair Prediction](#cyclase-peptide-pair-prediction)
-  - [Antimicrobial Activity Prediction](#antimicrobial-activity-prediction)
-- [Repository Structure](#-repository-structure)
-  - [code/](#code)
-  - [example_notebook/](#example_notebook)
-  - [data/](#data)
-  - [test/](#test)
-  - [Other Files](#other-files)
-- [License](#license)
 
 ## Quick Start
 ### Getting started with this repo
