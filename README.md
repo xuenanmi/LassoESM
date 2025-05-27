@@ -9,6 +9,9 @@ cd LassoESM
 conda env create -f environment.yml
 conda activate lassoesm
 
+###Usage
+
+
 ## Repository Structure
 - LassoESM
   - `LassoESM_pretraining.py`: Pretraining Lasso Peptide-Specific Language Model
