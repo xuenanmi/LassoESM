@@ -2,6 +2,16 @@
 
 ![LassoESM](LassoESM_workflow.png) 
 
+## 📑 Table of Contents
+
+- [Quick Start](#quick-start)
+  - [Getting started with this repo](#getting-started-with-this-repo)
+  - [Usage](#usage)
+- [📁 Repository Structure](#-repository-structure)
+  - [`code/`](#code)
+  - [`example_notebook/`](#examplenotebook)
+  - [`data/`](#data)
+- [Authors](#authors)
 
 ## Quick Start
 ### Getting started with this repo
