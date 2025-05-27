@@ -106,9 +106,7 @@ Dataset used in the paper
 - `data_for_antimicrobial_activity_prediction`
 
 ---
-## Paper
-**(https://doi.org/10.1101/2024.10.25.620295)**
----
+
 ## Authors
 
 - **Xuenan Mi** - [xmi4@illinois.edu](mailto:xmi4@illinois.edu)
