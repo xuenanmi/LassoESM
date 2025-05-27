@@ -98,7 +98,7 @@ Example Jupyter notebooks for key analysis tasks:
 ---
 
 ### `data/`  
-Organized datasets for model training and evaluation:
+Dataset used in the paper
 
 - `data_for_LassoESM_training`
 - `data_for_substrate_tolerance_prediction`
@@ -106,7 +106,11 @@ Organized datasets for model training and evaluation:
 - `data_for_antimicrobial_activity_prediction`
 
 ---
+## Paper
 
+The methodology and applications of **LassoESM** are described in detail in our manuscript:  
+**[Read the paper here](https://doi.org/10.1101/2024.10.25.620295)**
+---
 ## Authors
 
 - **Xuenan Mi** - [xmi4@illinois.edu](mailto:xmi4@illinois.edu)
