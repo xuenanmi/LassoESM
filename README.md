@@ -60,7 +60,7 @@ for seq in sequences:
 
 ## Repository Structure
 
-### `code/` 
+### `code` 
 Source code for model training and downstream tasks:
 
 - **LassoESM pretraining**:
@@ -87,7 +87,7 @@ Source code for model training and downstream tasks:
 
 ---
 
-### `example_notebook/`  
+### `example_notebook`  
 Example Jupyter notebooks for key analysis:
 
 - `extract_embeddings.ipynb`: Demonstrates embedding extraction workflow.
@@ -97,7 +97,7 @@ Example Jupyter notebooks for key analysis:
 
 ---
 
-### `data/`  
+### `data`  
 Dataset used in the paper
 
 - `data_for_LassoESM_training`
