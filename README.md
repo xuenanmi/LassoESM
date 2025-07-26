@@ -8,9 +8,9 @@
   - [Getting started with this repo](#getting-started-with-this-repo)
   - [Usage](#usage)
 - [Repository Structure](#-repository-structure)
-  - [`code/`](#code)
-  - [`example_notebook/`](#examplenotebook)
-  - [`data/`](#data)
+  - [`code`](#code)
+  - [`example_notebook`](#examplenotebook)
+  - [`data`](#data)
 - [Authors](#authors)
 
 ## Quick Start
