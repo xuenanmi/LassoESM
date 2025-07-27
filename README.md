@@ -1,4 +1,4 @@
-# LassoESM: A tailored language model to enhance lasso peptide property prediction
+# LassoESM: A tailored language model for enhanced lasso peptide property prediction
 
 ![LassoESM](LassoESM_workflow.png) 
 
