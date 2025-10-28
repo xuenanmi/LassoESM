@@ -75,21 +75,6 @@ Dataset used in the paper
 ---
 
 
-### Citation (BibTeX)
+### Reference
 
-```bibtex
-@article{Mi2025,
-  title = {LassoESM a tailored language model for enhanced lasso peptide property prediction},
-  volume = {16},
-  ISSN = {2041-1723},
-  url = {http://dx.doi.org/10.1038/s41467-025-63412-3},
-  DOI = {10.1038/s41467-025-63412-3},
-  number = {1},
-  journal = {Nature Communications},
-  publisher = {Springer Science and Business Media LLC},
-  author = {Mi,  Xuenan and Barrett,  Susanna E. and Mitchell,  Douglas A. and Shukla,  Diwakar},
-  year = {2025},
-  month = sep 
-}
-
-
+Mi, X., Barrett, S.E., Mitchell, D.A. et al. LassoESM a tailored language model for enhanced lasso peptide property prediction. Nat Commun 16, 8545 (2025). https://doi.org/10.1038/s41467-025-63412-3
