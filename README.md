@@ -21,6 +21,9 @@ conda env create -f environment.yml
 conda activate lassoesm
 ```
 
+### Usage
+Use`code/LassoESM/get_embeddings_LassoESM.py` to extract embeddings for peptide sequences from LassoESM/PeptideESM/VanillaESM
+
 ## Repository Structure
 
 ### `code` 
