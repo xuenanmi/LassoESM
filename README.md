@@ -11,7 +11,7 @@
   - [`code`](#code)
   - [`example_notebook`](#examplenotebook)
   - [`data`](#data)
-- [Authors](#authors)
+- [Reference](#reference)
 
 ## Quick Start
 ### Getting started with this repo
