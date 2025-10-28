@@ -74,9 +74,14 @@ Dataset used in the paper
 
 ---
 
-## Authors
 
-- **Xuenan Mi** - [xmi4@illinois.edu](mailto:xmi4@illinois.edu)
+## Reference
+
+If you use **LassoESM** or any part of this repository in your research, please cite our paper:
+
+> **Mi, X.**, Boggess, S. E., Shukla, D., & Mitchell, D. A.  
+> *LassoESM: A tailored language model for enhanced lasso peptide property prediction.*  
+> **Nature Communications** (2025). [https://www.nature.com/articles/s41467-025-63412-3](https://www.nature.com/articles/s41467-025-63412-3)
 
 
 
