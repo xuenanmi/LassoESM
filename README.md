@@ -6,6 +6,7 @@
 
 - [Quick Start](#quick-start)
   - [Getting started with this repo](#getting-started-with-this-repo)
+  - [Usage](#usage)
 - [Repository Structure](#-repository-structure)
   - [`code`](#code)
   - [`example_notebook`](#examplenotebook)
@@ -22,7 +23,7 @@ conda activate lassoesm
 ```
 
 ### Usage
-Use`code/LassoESM/get_embeddings_LassoESM.py` to extract embeddings for peptide sequences from LassoESM/PeptideESM/VanillaESM
+The script `code/LassoESM/get_embeddings_LassoESM.py` can be used to extract embeddings for peptide sequences from LassoESM/PeptideESM/VanillaESM
 
 ## Repository Structure
 
