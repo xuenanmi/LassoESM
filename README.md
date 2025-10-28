@@ -21,42 +21,6 @@ cd LassoESM
 conda env create -f environment.yml
 conda activate lassoesm
 ```
-### Usage
-Extract embeddings from LassoESM
-
-Below is a minimal example for extracting LassoESM embeddings from a peptide sequence list:
-```bash
-from transformers import AutoTokenizer, AutoModel
-import torch
-
-# Load LassoESM model
-tokenizer = AutoTokenizer.from_pretrained("ShuklaGroupIllinois/LassoESM")
-model = AutoModel.from_pretrained("ShuklaGroupIllinois/LassoESM")
-model.eval()
-
-sequences = ["WYTAEWGLELIFVFPRFI", "GGAGHVPEYFVGIGTPISFYG"]
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = model.to(device)
-
-for seq in sequences:
-    inputs = tokenizer(seq, return_tensors="pt", add_special_tokens=True).to(device)
-
-    with torch.no_grad():
-        outputs = model(**inputs, output_hidden_states=True)
-        last_hidden = outputs.hidden_states[-1][0]  # shape: [seq_len, 1280]
-
-    # Extract per-residue representations
-    tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
-
-    # Exclude special tokens [CLS], [EOS] by slicing [1:-1]
-    residue_embeddings = last_hidden[1:-1]  # shape: [L, 1280], L = length of sequence
-
-    # Per-sequence embedding: mean over residues
-    mean_embedding = residue_embeddings.mean(dim=0)  # shape: [1280]
-
-    print(f"Per-residue embedding shape: {residue_embeddings.shape}")
-    print(f"Per-sequence embedding shape: {mean_embedding.shape}")
-```
 
 ## Repository Structure
 
